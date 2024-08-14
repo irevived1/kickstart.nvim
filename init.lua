@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -146,7 +146,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', eol = '¬' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -161,8 +161,8 @@ vim.opt.scrolloff = 10
 --  See `:help vim.keymap.set()`
 
 -- MY KEYMAPS BEGIN
-vim.api.nvim_exec(
-  [[ 
+vim.api.nvim_exec2(
+  [[
     function! s:ZoomToggle() abort
       if exists('t:zoomed') && t:zoomed
         execute t:zoom_winrestcmd
@@ -176,19 +176,14 @@ vim.api.nvim_exec(
     endfunction
     command! ZoomToggle call s:ZoomToggle()
   ]],
-  false
+  { output = false }
 )
 
-vim.cmd [[
-  set listchars=eol:¬
-  " hi NonText guibg=#eee
-  nnoremap <silent><expr> ,h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-]]
+vim.keymap.set('n', ',h', [[ (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]], { silent = true, expr = true, desc = 'toggles highlighting' })
 
 vim.keymap.set('n', ';', ':', { noremap = true, desc = 'Command mode' })
 vim.keymap.set('n', "'", '`', { noremap = true, desc = 'Mark character' })
 vim.keymap.set('n', '`', "'", { noremap = true, desc = 'Mark line' })
--- vim.keymap.set("n", "œ", "<cmd>bdelete<CR>", { silent = true, desc = "Buffer Delete" })
 vim.keymap.set('n', '<C-z>', '<cmd>ZoomToggle<CR>', { noremap = true, desc = 'Zoom Toggle' })
 
 vim.keymap.set('i', 'df', '<ESC>', { noremap = true, desc = 'ESC' })
@@ -201,6 +196,9 @@ vim.keymap.set('n', ',n', '<cmd>Neotree toggle<CR>', { noremap = true, desc = 'T
 vim.keymap.set('n', ',N', '<cmd>Neotree reveal left<CR>', { noremap = true, desc = 'Follow File Toggle' })
 
 vim.keymap.set('n', '<leader>w', '<cmd>:w<CR>', { noremap = true, desc = 'Save file' })
+
+vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, desc = 'Signature Help' })
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = true, desc = 'LSP format' })
 
 vim.g.diagnostics_active = false
 function _G.toggle_diagnostics()
@@ -342,6 +340,7 @@ require('lazy').setup({
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
+        { '<leader>f', group = '[F]ormat' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
@@ -521,6 +520,7 @@ require('lazy').setup({
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -626,16 +626,6 @@ require('lazy').setup({
               callback = function(event2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-              end,
-            })
-          end
-
-          -- custom auto format
-          if client then
-            client.server_capabilities.documentFormattingProvider = true
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              callback = function()
-                vim.lsp.buf.format()
               end,
             })
           end
@@ -838,7 +828,13 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-j>'] = cmp.mapping.confirm { select = true },
+          ['<C-j>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.confirm { select = true }
+            else
+              cmp.complete()
+            end
+          end, { 'i', 's' }),
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -880,6 +876,7 @@ require('lazy').setup({
             group_index = 0,
           },
           { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
           { name = 'luasnip' },
           { name = 'path' },
         },
