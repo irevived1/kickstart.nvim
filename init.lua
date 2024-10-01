@@ -366,7 +366,6 @@ require('lazy').setup({
           F12 = '<F12>',
         },
       },
-
       -- Document existing key chains
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
@@ -377,6 +376,9 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      },
+      triggers = {
+        { '<leader>', mode = 'nixsotc' },
       },
     },
   },
