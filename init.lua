@@ -103,6 +103,12 @@ vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.virtualedit = 'block'
+-- vim.opt.inccommand = "split"
+vim.opt.termguicolors = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -857,6 +863,8 @@ require('lazy').setup({
         completion = {
           completeopt = 'menu,menuone,noinsert,noselect',
         },
+
+        experimental = { ghost_text = true },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
