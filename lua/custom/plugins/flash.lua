@@ -10,9 +10,9 @@ return {
         },
       },
     }
-    vim.keymap.set('n', 'f', '<cmd>lua require("flash").jump()<CR>', { noremap = true, desc = 'flash search' })
+    vim.keymap.set({'n', 'v', 'o'}, 'f', '<cmd>lua require("flash").jump()<CR>', { noremap = true, desc = 'flash search' })
     vim.keymap.set(
-      'n',
+      {'n', 'v', 'o'},
       'F',
       '<cmd>lua require("flash").jump({search = { forward = false, wrap = false, multi_window = false }})<CR>',
       { noremap = true, desc = 'flash search backwards' }

@@ -44,6 +44,9 @@ vim.keymap.set('n', '<leader>w', '<cmd>:w<CR>', { noremap = true, desc = 'Save f
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, desc = 'Signature Help' })
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = true, desc = 'LSP format' })
 
+vim.api.nvim_set_keymap('n', '<leader>yr', ":let @+=expand('%:.%:t')<CR>", { noremap = true, silent = true, desc = 'Copy Relative Path' })
+vim.api.nvim_set_keymap('n', '<leader>ya', ":let @+=expand('%:P%:t')<CR>", { noremap = true, silent = true, desc = 'Copy Absolute Path' })
+
 vim.g.diagnostics_active = false
 function _G.toggle_diagnostics()
   if vim.g.diagnostics_active then
