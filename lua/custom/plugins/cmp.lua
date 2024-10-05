@@ -1,31 +1,36 @@
 return {
-  "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
+  'hrsh7th/nvim-cmp',
+  event = 'InsertEnter',
   dependencies = {
-    "hrsh7th/cmp-buffer", -- source for text in buffer
-    "hrsh7th/cmp-path", -- source for file system paths
+    'hrsh7th/cmp-buffer', -- source for text in buffer
+    'hrsh7th/cmp-path', -- source for file system paths
     {
-      "L3MON4D3/LuaSnip",
+      'L3MON4D3/LuaSnip',
       -- follow latest release.
-      version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+      version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
       -- install jsregexp (optional!).
-      build = "make install_jsregexp",
+      build = 'make install_jsregexp',
     },
-    "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    "rafamadriz/friendly-snippets", -- useful snippets
-    "onsails/lspkind.nvim", -- vs-code like pictograms
+    'saadparwaiz1/cmp_luasnip', -- for autocompletion
+    'rafamadriz/friendly-snippets', -- useful snippets
+    'onsails/lspkind.nvim', -- vs-code like pictograms
   },
   config = function()
-    local cmp = require("cmp")
+    local cmp = require 'cmp'
 
-    local luasnip = require("luasnip")
+    local luasnip = require 'luasnip'
 
-    local lspkind = require("lspkind")
+    local lspkind = require 'lspkind'
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-    require("luasnip.loaders.from_vscode").lazy_load()
+    require('luasnip.loaders.from_vscode').lazy_load {}
 
-    cmp.setup({
+    -- https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file
+    for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('mysnippets/*.lua', true)) do
+      loadfile(ft_path)()
+    end
+
+    cmp.setup {
       preselect = cmp.PreselectMode.None,
       completion = {
         completeopt = 'menu,menuone,noinsert,noselect',
@@ -36,9 +41,9 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      mapping = cmp.mapping.preset.insert({
-        ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      mapping = cmp.mapping.preset.insert {
+        ['<C-e>'] = cmp.mapping.abort(), -- close completion window
+        ['<CR>'] = cmp.mapping.confirm { select = true },
 
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -70,24 +75,29 @@ return {
             luasnip.jump(-1)
           end
         end, { 'i', 's' }),
-      }),
+      },
       -- sources for autocompletion
-      sources = cmp.config.sources({
-        { name = "nvim_lsp"},
-        { name = "luasnip" }, -- snippets
-        { name = "buffer" }, -- text within current buffer
-        { name = "path" }, -- file system paths
-      }),
-
+      sources = cmp.config.sources {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' }, -- snippets
+        { name = 'buffer' }, -- text within current buffer
+        { name = 'path' }, -- file system paths
+      },
+      -- sorting = {
+      --   comparators = {
+      --     cmp.config.compare.score,
+      --     cmp.config.compare.recently_used,
+      --   },
+      -- },
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
         expandable_indicator = true,
         fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
-        format = lspkind.cmp_format({
+        format = lspkind.cmp_format {
           maxwidth = 50,
-          ellipsis_char = "...",
-        }),
+          ellipsis_char = '...',
+        },
       },
-    })
+    }
   end,
 }
