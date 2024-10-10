@@ -59,3 +59,5 @@ function _G.toggle_diagnostics()
 end
 
 vim.api.nvim_set_keymap('n', '<leader>uv', ':call v:lua.toggle_diagnostics()<CR>', { noremap = true, silent = true, desc = 'Toggle diagnostic text' })
+
+vim.api.nvim_create_user_command('Notes', 'edit' .. vim.fn.stdpath 'config' .. '/doc/notes.txt', {})

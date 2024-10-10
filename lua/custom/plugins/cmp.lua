@@ -55,10 +55,10 @@ return {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
         ['<C-j>'] = cmp.mapping(function(fallback)
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          elseif cmp.visible() then
+          if cmp.visible() then
             cmp.confirm { select = true }
+          elseif luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
           else
             cmp.complete()
           end
