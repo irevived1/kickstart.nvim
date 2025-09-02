@@ -1,0 +1,5 @@
+NOTES
+
+:g/^$/d delete empty lines
+:v/\w\+/d (skip lines with one or more words) delete empty lines
+!column -t column format
