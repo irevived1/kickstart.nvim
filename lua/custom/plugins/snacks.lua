@@ -63,21 +63,14 @@ return {
       desc = 'Command History',
     },
     {
-      '<leader>n',
+      ',nh',
       function()
         Snacks.picker.notifications()
       end,
       desc = 'Notification History',
     },
     {
-      '<leader>ue',
-      function()
-        Snacks.explorer()
-      end,
-      desc = 'File Explorer',
-    },
-    {
-      ',n',
+      '<leader>n',
       function()
         Snacks.explorer()
       end,
@@ -464,7 +457,7 @@ return {
       desc = 'Select Scratch Buffer',
     },
     {
-      '<leader>n',
+      ',n',
       function()
         Snacks.notifier.show_history()
       end,
