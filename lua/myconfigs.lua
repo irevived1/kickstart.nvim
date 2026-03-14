@@ -36,18 +36,17 @@ vim.keymap.set('n', '<CR>', 'o<ESC>', { noremap = true, desc = 'ESC' })
 vim.keymap.set('n', 'L', '<cmd>bn<CR>', { noremap = true, desc = 'buffer next' })
 vim.keymap.set('n', 'H', '<cmd>bp<CR>', { noremap = true, desc = 'buffer previous' })
 
-vim.keymap.set('n', ',n', '<cmd>Neotree toggle<CR>', { noremap = true, desc = 'Tree Toggle' })
-vim.keymap.set('n', ',N', '<cmd>Neotree reveal left<CR>', { noremap = true, desc = 'Follow File Toggle' })
-
 vim.keymap.set('n', '<leader>w', '<cmd>:w<CR>', { noremap = true, desc = 'Save file' })
 
 vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, desc = 'Signature Help' })
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = true, desc = 'LSP format' })
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, desc = 'Rename' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, desc = 'Code Action' })
 
 vim.api.nvim_set_keymap('n', '<leader>yr', ":let @+=expand('%:.%:t')<CR>", { noremap = true, silent = true, desc = 'Copy Relative Path' })
 vim.api.nvim_set_keymap('n', '<leader>ya', ":let @+=expand('%:P%:t')<CR>", { noremap = true, silent = true, desc = 'Copy Absolute Path' })
 
-vim.g.diagnostics_active = true
+vim.g.diagnostics_active = false
 function _G.toggle_diagnostics()
   if vim.g.diagnostics_active then
     vim.g.diagnostics_active = false
