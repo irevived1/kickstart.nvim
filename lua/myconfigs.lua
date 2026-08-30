@@ -2,9 +2,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.virtualedit = 'block'
-vim.opt.termguicolors = true
-vim.opt.synmaxcol = 200        -- stop syntax highlighting past col 200 (perf on long lines)
-vim.opt.clipboard = 'unnamed'  -- match vimrc behavior (system clipboard via unnamed register)
+vim.opt.termguicolors = true  -- required for true-color themes (tender)
 
 -- Restore cursor to last position when reopening a file
 vim.api.nvim_create_autocmd('BufReadPost', {
