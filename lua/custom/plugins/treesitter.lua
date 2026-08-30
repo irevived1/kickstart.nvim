@@ -10,13 +10,17 @@ return {
     config = function()
       require('nvim-treesitter').setup {
         auto_install = true,
+        -- enable syntax highlighting
         highlight = {
           enable = true,
         },
+        -- enable indentation
         indent = { enable = true },
+        -- enable autotagging (w/ nvim-ts-autotag plugin)
         autotag = {
           enable = true,
         },
+        -- ensure these language parsers are installed
         ensure_installed = {
           'json',
           'javascript',
@@ -59,9 +63,9 @@ return {
               ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
             },
             selection_modes = {
-              ['@parameter.outer'] = 'v',
-              ['@function.outer'] = 'V',
-              ['@class.outer'] = '<c-v>',
+              ['@parameter.outer'] = 'v',   -- charwise
+              ['@function.outer'] = 'V',    -- linewise
+              ['@class.outer'] = '<c-v>',   -- blockwise
             },
             include_surrounding_whitespace = true,
           },
