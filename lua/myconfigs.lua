@@ -65,7 +65,7 @@ vim.keymap.set('n', '<leader>q', ':bp<CR>:bd #<CR>', { noremap = true, desc = 'C
 -- Insert mode navigation
 vim.keymap.set('i', '<C-h>', '<left>', { noremap = true, desc = 'Move left' })
 vim.keymap.set('i', '<C-j>', '<down>', { noremap = true, desc = 'Move down' })
--- Note: <C-k> is used for LSP signature help below
+-- Note: <C-k> is used for cursor up below (blink shows signature help automatically)
 
 -- macOS Option key insert mode navigation
 vim.keymap.set('i', '˙', '<C-o>h', { noremap = true, desc = 'Move left (opt+h)' })
@@ -115,7 +115,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 vim.keymap.set('n', '<leader>w', '<cmd>:w<CR>', { noremap = true, desc = 'Save file' })
 
 -- LSP
-vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { noremap = true, desc = 'Signature Help' })
+vim.keymap.set('i', '<C-k>', '<up>', { noremap = true, desc = 'Move up' })
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = true, desc = 'LSP format' })
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { noremap = true, desc = 'Rename' })
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, desc = 'Code Action' })

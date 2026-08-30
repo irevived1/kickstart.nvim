@@ -47,8 +47,10 @@ return {
           end
         end,
         'snippet_forward',
+        'fallback', -- pass through to <down> mapping when no completion/snippet active
       },
       ['<C-h>'] = { 'snippet_backward', 'fallback' },
+      ['<C-k>'] = { 'fallback' }, -- pass through to <up> mapping (signature help is shown automatically)
     },
 
     appearance = {
