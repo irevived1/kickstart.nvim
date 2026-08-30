@@ -61,7 +61,12 @@ return {
   {
     'AdamAugustinsky/opencode-inline.nvim',
     cmd = { 'OpencodeInline' },
-    keys = { '<leader>k', '<leader>ke', '<leader>kr', '<leader>kt' },
+    keys = {
+      { '<leader>k',  mode = 'v' },
+      { '<leader>ke', mode = 'v' },
+      { '<leader>kr', mode = 'v' },
+      { '<leader>kt', mode = 'v' },
+    },
     config = function()
       require('opencode_inline').setup {
         input_prompt = 'Instruction: ',
