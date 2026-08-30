@@ -116,9 +116,9 @@ vim.api.nvim_create_autocmd('User', {
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Save file' })
 
 -- LSP
-vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format,      { noremap = true, desc = 'LSP format' })
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,      { noremap = true, desc = 'Rename' })
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, desc = 'Code Action' })
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format,                        { noremap = true, desc = 'LSP format' })
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,                        { noremap = true, desc = 'Rename' })
+vim.keymap.set('n', '<leader>ca', function() Snacks.picker.lsp_code_actions() end, { noremap = true, desc = 'Code Action' })
 
 -- Copy paths to system clipboard
 vim.keymap.set('n', '<leader>yr', function()
