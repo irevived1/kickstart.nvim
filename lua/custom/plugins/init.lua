@@ -1,4 +1,5 @@
 return {
+  -- Seamless navigation between vim splits and tmux panes with C-h/j/k/l
   {
     'christoomey/vim-tmux-navigator',
     cmd = {
@@ -46,6 +47,8 @@ return {
       },
     },
     config = function(_, opts)
+      -- Define icon highlight groups before setup so they exist when mini.icons first runs.
+      -- These are re-applied in tender's config because colorscheme load resets all highlights.
       vim.api.nvim_set_hl(0, 'IconFolder',   { fg = '#d4935a' })
       vim.api.nvim_set_hl(0, 'IconTs',       { fg = '#7eacc0' })
       vim.api.nvim_set_hl(0, 'IconTsx',      { fg = '#4d9ab0' })
@@ -56,6 +59,8 @@ return {
       require('mini.icons').setup(opts)
     end,
     init = function()
+      -- Make mini.icons respond to require('nvim-web-devicons') so plugins that
+      -- depend on devicons (e.g. lualine, bufferline) get icons without the real package.
       package.preload['nvim-web-devicons'] = function()
         require('mini.icons').mock_nvim_web_devicons()
         return package.loaded['nvim-web-devicons']
@@ -94,12 +99,13 @@ return {
     end,
   },
 
-  -- Other themes (available but not active)
+  -- Other themes installed but not active (switch via \uC colorscheme picker)
   { 'catppuccin/nvim', name = 'catppuccin', priority = 999 },
   { 'navarasu/onedark.nvim', priority = 999 },
   { 'marko-cerovac/material.nvim', priority = 999 },
   { 'scottmckendry/cyberdream.nvim', lazy = true },
 
+  -- Inline color previews in CSS and style files
   { 'NvChad/nvim-colorizer.lua', opts = {
     user_default_options = {
       css = true,
