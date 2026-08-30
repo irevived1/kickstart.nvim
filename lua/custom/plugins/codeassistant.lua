@@ -55,4 +55,26 @@ return {
       },
     },
   },
+
+  -- Inline AI transforms: select code, press \k, type instruction → replaced in place
+  -- Uses the `claude` CLI under the hood (same binary as Claude Code)
+  {
+    'AdamAugustinsky/opencode-inline.nvim',
+    cmd = { 'OpencodeInline' },
+    keys = { '<leader>k', '<leader>ke', '<leader>kr', '<leader>kt' },
+    config = function()
+      require('opencode_inline').setup {
+        input_prompt = 'Instruction: ',
+        mappings = {
+          prompt      = '<leader>k',
+          prompt_desc = 'AI: transform selection',
+        },
+        presets = {
+          explain  = { key = '<leader>ke', instruction = 'Explain this code concisely', desc = 'AI: explain' },
+          refactor = { key = '<leader>kr', instruction = 'Refactor for readability',    desc = 'AI: refactor' },
+          tests    = { key = '<leader>kt', instruction = 'Write unit tests',             desc = 'AI: write tests' },
+        },
+      }
+    end,
+  },
 }
