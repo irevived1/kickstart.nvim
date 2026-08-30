@@ -32,7 +32,8 @@ return {
       highlights = {
         fill                = { bg = '#282828' },
         background          = { fg = '#666666', bg = '#282828' },
-        buffer_selected     = { fg = '#eeeeee', bg = '#282828', bold = true, underline = true, sp = '#73cef4' },
+        -- fg drives underline color when terminal lacks guisp support
+        buffer_selected     = { fg = '#73cef4', bg = '#282828', bold = true, underline = true },
         buffer_visible      = { fg = '#888888', bg = '#282828' },
         indicator_selected  = { fg = '#73cef4', sp = '#73cef4', underline = true },
         separator           = { fg = '#3a3a3a', bg = '#282828' },

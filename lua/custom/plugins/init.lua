@@ -81,11 +81,9 @@ return {
       vim.api.nvim_set_hl(0, 'SnacksNormal',   { fg = '#eeeeee', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'SnacksNormalNC', { fg = '#eeeeee', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'NormalFloat',    { fg = '#eeeeee', bg = '#282828' })
-      -- Explorer cursor line: barely-visible teal tint + cyan underline
-      -- sp alone doesn't color underlines in normal windows (only in extmark/bufferline context);
-      -- a subtle bg gives the underline a surface to render against.
-      vim.api.nvim_set_hl(0, 'SnacksPickerCursorLine',     { bg = '#242e32', underline = true, sp = '#73cef4' })
-      vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#242e32', underline = true, sp = '#73cef4' })
+      -- Explorer cursor line: subtle teal bg + cyan underline via fg fallback
+      vim.api.nvim_set_hl(0, 'SnacksPickerCursorLine',     { bg = '#242e32', fg = '#73cef4', underline = true })
+      vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#242e32', fg = '#73cef4', underline = true })
       -- Match NERDTree-style colors from tender
       vim.api.nvim_set_hl(0, 'SnacksPickerDirectory',         { fg = '#b3deef', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'SnacksPickerFile',              { fg = '#eeeeee', bg = '#282828' })
