@@ -93,13 +93,14 @@ vim.keymap.set('n', '<leader>n', function() Snacks.explorer() end, { noremap = t
 vim.keymap.set('n', '<leader>N', function() Snacks.explorer({ reveal = true }) end, { noremap = true, desc = 'Reveal file in tree' })
 
 -- Always open explorer on startup, but return focus to main window
--- so dashboard (no-arg launch) or file (file-arg launch) gets focus
-vim.api.nvim_create_autocmd('VimEnter', {
+-- so dashboard (no-arg launch) or file (file-arg launch) gets focus.
+-- Uses VeryLazy (not VimEnter) because Snacks isn't ready until after lazy.nvim finishes loading.
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  once = true,
   callback = function()
-    vim.schedule(function()
-      Snacks.explorer()
-      vim.cmd 'wincmd p'
-    end)
+    Snacks.explorer()
+    vim.cmd 'wincmd p'
   end,
 })
 
