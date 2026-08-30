@@ -99,8 +99,11 @@ vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
   once = true,
   callback = function()
+    local win = vim.api.nvim_get_current_win()
     Snacks.explorer()
-    vim.cmd 'wincmd p'
+    vim.schedule(function()
+      vim.api.nvim_set_current_win(win)
+    end)
   end,
 })
 
