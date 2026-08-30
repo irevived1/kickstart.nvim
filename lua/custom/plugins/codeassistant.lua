@@ -27,27 +27,15 @@ return {
         action_palette = {
           provider = 'snacks',
           opts = {
-            show_default_actions = true, -- Show the default actions in the action palette?
-            show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-            title = 'CodeCompanion actions', -- The title of the action palette
+            show_default_actions = true,
+            show_default_prompt_library = true,
+            title = 'CodeCompanion actions',
           },
         },
       },
-      -- NOTE: The log_level is in `opts.opts`
       opts = {
-        log_level = 'DEBUG', -- or "TRACE"
+        log_level = 'DEBUG',
       },
     },
-  },
-  {
-    'Exafunction/windsurf.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-    },
-    config = function()
-      require('codeium').setup {}
-      vim.keymap.set('n', '<leader>tc', ':Codeium Toggle<CR>', { desc = 'Toggle Codeium' })
-    end,
   },
 }
