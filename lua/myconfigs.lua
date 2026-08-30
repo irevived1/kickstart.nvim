@@ -60,7 +60,7 @@ vim.keymap.set('n', '<Tab>', '<cmd>bn!<CR>', { noremap = true, desc = 'Buffer ne
 vim.keymap.set('n', '<S-Tab>', '<cmd>bp!<CR>', { noremap = true, desc = 'Buffer previous' })
 vim.keymap.set('n', 'L', '<cmd>bn<CR>', { noremap = true, desc = 'Buffer next' })
 vim.keymap.set('n', 'H', '<cmd>bp<CR>', { noremap = true, desc = 'Buffer previous' })
-vim.keymap.set('n', '<leader>q', function() Snacks.bufdelete() end, { noremap = true, desc = 'Close buffer (keep split)' })
+vim.keymap.set('n', '<leader>q', ':bp<CR>:bd #<CR>', { noremap = true, desc = 'Close buffer (keep split)' })
 
 -- Insert mode navigation
 vim.keymap.set('i', '<C-h>', '<left>', { noremap = true, desc = 'Move left' })
