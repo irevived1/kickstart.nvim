@@ -43,8 +43,8 @@ return {
             list = {
               keys = {
                 ['O'] = 'toggle_maximize',
-                ['s'] = 'vsplit',
-                ['i'] = 'split',
+                ['s'] = 'vsplit',  -- vertical split (NERDTree muscle memory)
+                ['i'] = 'split',   -- horizontal split (NERDTree muscle memory)
               },
             },
           },
