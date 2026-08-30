@@ -81,9 +81,9 @@ return {
       vim.api.nvim_set_hl(0, 'SnacksNormal',   { fg = '#eeeeee', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'SnacksNormalNC', { fg = '#eeeeee', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'NormalFloat',    { fg = '#eeeeee', bg = '#282828' })
-      -- Explorer cursor line: subtle teal bg + cyan underline via fg fallback
-      vim.api.nvim_set_hl(0, 'SnacksPickerCursorLine',     { bg = '#242e32', fg = '#73cef4', underline = true })
-      vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#242e32', fg = '#73cef4', underline = true })
+      -- Explorer cursor line: subtle teal tint, no fg override (preserves icon colors)
+      vim.api.nvim_set_hl(0, 'SnacksPickerCursorLine',     { bg = '#242e32' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#242e32' })
       -- Match NERDTree-style colors from tender
       vim.api.nvim_set_hl(0, 'SnacksPickerDirectory',         { fg = '#b3deef', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'SnacksPickerFile',              { fg = '#eeeeee', bg = '#282828' })
