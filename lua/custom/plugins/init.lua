@@ -30,27 +30,24 @@ return {
     end,
   },
 
-  -- Themes
-  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  -- Active theme: tender (matches nvim setup)
   {
-    'navarasu/onedark.nvim',
+    'jacoborus/tender.vim',
     priority = 1000,
     config = function()
-      require('onedark').setup {
-        style = 'darker',
-      }
-      require('onedark').load()
+      vim.cmd.colorscheme 'tender'
     end,
   },
-  { 'marko-cerovac/material.nvim', priority = 1000 },
+
+  -- Other themes (available but not active)
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 999 },
+  { 'navarasu/onedark.nvim', priority = 999 },
+  { 'marko-cerovac/material.nvim', priority = 999 },
+  { 'scottmckendry/cyberdream.nvim', lazy = true },
+
   { 'NvChad/nvim-colorizer.lua', opts = {
     user_default_options = {
       css = true,
     },
   } },
-  {
-    'scottmckendry/cyberdream.nvim',
-    lazy = false,
-    priority = 1000,
-  },
 }
