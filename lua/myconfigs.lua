@@ -101,7 +101,7 @@ vim.api.nvim_create_autocmd('User', {
   callback = function()
     local win = vim.api.nvim_get_current_win()
     Snacks.explorer()
-    -- double-schedule so we run after Snacks' own internal vim.schedule focus grab
+    -- Snacks grabs focus via an internal vim.schedule; double-schedule runs after it
     vim.schedule(function()
       vim.schedule(function()
         if vim.api.nvim_win_is_valid(win) then
