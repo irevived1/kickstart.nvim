@@ -1,8 +1,8 @@
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
-vim.opt.virtualedit = 'block'
-vim.opt.termguicolors = true  -- required for true-color themes (tender)
+vim.opt.virtualedit = 'block'  -- allow cursor to move freely in visual block mode (past EOL)
+vim.opt.termguicolors = true   -- required for true-color themes (tender)
 
 -- Restore cursor to last position when reopening a file
 vim.api.nvim_create_autocmd('BufReadPost', {
@@ -53,6 +53,7 @@ vim.keymap.set('n', '<Tab>', '<cmd>bn!<CR>', { noremap = true, desc = 'Buffer ne
 vim.keymap.set('n', '<S-Tab>', '<cmd>bp!<CR>', { noremap = true, desc = 'Buffer previous' })
 vim.keymap.set('n', 'L', '<cmd>bn<CR>', { noremap = true, desc = 'Buffer next' })
 vim.keymap.set('n', 'H', '<cmd>bp<CR>', { noremap = true, desc = 'Buffer previous' })
+-- bp first, then delete original — keeps the split open (bd alone would close the window)
 vim.keymap.set('n', '<leader>q', function()
   local cur = vim.fn.bufnr('%')
   vim.cmd 'bp'
@@ -75,13 +76,13 @@ vim.keymap.set('i', '…', '<ESC>', { noremap = true, desc = 'ESC (opt+;)' })
 vim.keymap.set('v', '…', '<ESC>', { noremap = true, desc = 'ESC (opt+;)' })
 vim.keymap.set('c', '…', '<ESC>', { noremap = true, desc = 'ESC (opt+;)' })
 
--- Named register shortcuts (j/k/l as temporary clipboards)
+-- Named register shortcuts: visual a/z/x yank into j/k/l; opt+a/z/x paste them back
 vim.keymap.set('v', 'a', '"jy', { noremap = true, desc = 'Yank to register j' })
 vim.keymap.set('v', 'z', '"ky', { noremap = true, desc = 'Yank to register k' })
 vim.keymap.set('v', 'x', '"ly', { noremap = true, desc = 'Yank to register l' })
-vim.keymap.set('n', 'å', '"jp', { noremap = true, desc = 'Paste from register j' })
-vim.keymap.set('n', 'Ω', '"kp', { noremap = true, desc = 'Paste from register k' })
-vim.keymap.set('n', '≈', '"lp', { noremap = true, desc = 'Paste from register l' })
+vim.keymap.set('n', 'å', '"jp', { noremap = true, desc = 'Paste from register j' }) -- opt+a
+vim.keymap.set('n', 'Ω', '"kp', { noremap = true, desc = 'Paste from register k' }) -- opt+z
+vim.keymap.set('n', '≈', '"lp', { noremap = true, desc = 'Paste from register l' }) -- opt+x
 
 vim.keymap.set('n', '<leader>z', function()
   vim.wo.relativenumber = not vim.wo.relativenumber
@@ -158,6 +159,7 @@ vim.keymap.set('n', '<leader>uv', function()
 end, { noremap = true, desc = 'Toggle diagnostic text' })
 vim.g.diagnostics_active = true
 
+-- :Notes opens a persistent scratch file inside the nvim config directory
 vim.api.nvim_create_user_command('Notes', function()
   vim.cmd('edit ' .. vim.fn.stdpath 'config' .. '/doc/notes.txt')
 end, {})
