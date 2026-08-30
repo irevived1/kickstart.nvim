@@ -2,7 +2,6 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.virtualedit = 'block'
--- vim.opt.inccommand = "split"
 vim.opt.termguicolors = true
 
 vim.api.nvim_exec2(
@@ -23,7 +22,7 @@ vim.api.nvim_exec2(
   { output = false }
 )
 
-vim.keymap.set('n', ',h', [[ (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]], { silent = true, expr = true, desc = 'toggles highlighting' })
+vim.keymap.set('n', ',h', [[ (&hls && v:hlsearch ? ':nohls' : ':set hls').."\n"]], { silent = true, expr = true, desc = 'toggles highlighting' })
 
 vim.keymap.set('n', ';', ':', { noremap = true, desc = 'Command mode' })
 vim.keymap.set('n', "'", '`', { noremap = true, desc = 'Mark character' })
@@ -31,13 +30,14 @@ vim.keymap.set('n', '`', "'", { noremap = true, desc = 'Mark line' })
 vim.keymap.set('n', '<C-z>', '<cmd>ZoomToggle<CR>', { noremap = true, desc = 'Zoom Toggle' })
 
 vim.keymap.set('i', 'df', '<ESC>', { noremap = true, desc = 'ESC' })
-vim.keymap.set('n', '<CR>', 'o<ESC>', { noremap = true, desc = 'ESC' })
+vim.keymap.set('n', '<CR>', 'o<ESC>', { noremap = true, desc = 'Insert blank line' })
 
-vim.keymap.set('n', 'L', '<cmd>bn<CR>', { noremap = true, desc = 'buffer next' })
-vim.keymap.set('n', 'H', '<cmd>bp<CR>', { noremap = true, desc = 'buffer previous' })
+vim.keymap.set('n', 'L', '<cmd>bn<CR>', { noremap = true, desc = 'Buffer next' })
+vim.keymap.set('n', 'H', '<cmd>bp<CR>', { noremap = true, desc = 'Buffer previous' })
 
-vim.keymap.set('n', ',n', '<cmd>Neotree toggle<CR>', { noremap = true, desc = 'Tree Toggle' })
-vim.keymap.set('n', ',N', '<cmd>Neotree reveal left<CR>', { noremap = true, desc = 'Follow File Toggle' })
+-- File explorer via Snacks (Neotree not installed)
+vim.keymap.set('n', '<leader>n', function() Snacks.explorer() end, { noremap = true, desc = 'Tree Toggle' })
+vim.keymap.set('n', '<leader>N', function() Snacks.explorer({ reveal = true }) end, { noremap = true, desc = 'Reveal file in tree' })
 
 vim.keymap.set('n', '<leader>w', '<cmd>:w<CR>', { noremap = true, desc = 'Save file' })
 
