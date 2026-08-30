@@ -20,8 +20,41 @@ return {
   -- Icons
   {
     'echasnovski/mini.icons',
-    lazy = true,
-    opts = {},
+    lazy = false,
+    opts = {
+      default = {
+        directory = { glyph = '󰉋', hl = 'IconFolder' },
+      },
+      extension = {
+        md  = { glyph = '󰍔', hl = 'IconMarkdown' },
+        mdx = { glyph = '󰍔', hl = 'IconMarkdown' },
+        ts  = { glyph = '󰛦', hl = 'IconTs' },
+        tsx = { glyph = '󰛦', hl = 'IconTsx' },
+        jsx = { glyph = '󰛦', hl = 'IconTsx' },
+        js  = { glyph = '󰌞', hl = 'IconJs' },
+        json = { glyph = '󰘦', hl = 'IconJson' },
+        lua = { glyph = '󰢱', hl = 'IconLua' },
+      },
+      filetype = {
+        typescript     = { glyph = '󰛦', hl = 'IconTs' },
+        typescriptreact = { glyph = '󰛦', hl = 'IconTsx' },
+        javascriptreact = { glyph = '󰛦', hl = 'IconTsx' },
+        markdown       = { glyph = '󰍔', hl = 'IconMarkdown' },
+        javascript     = { glyph = '󰌞', hl = 'IconJs' },
+        json           = { glyph = '󰘦', hl = 'IconJson' },
+        lua            = { glyph = '󰢱', hl = 'IconLua' },
+      },
+    },
+    config = function(_, opts)
+      vim.api.nvim_set_hl(0, 'IconFolder',   { fg = '#d4935a' })
+      vim.api.nvim_set_hl(0, 'IconTs',       { fg = '#7eacc0' })
+      vim.api.nvim_set_hl(0, 'IconTsx',      { fg = '#4d9ab0' })
+      vim.api.nvim_set_hl(0, 'IconMarkdown', { fg = '#a8a8a8' })
+      vim.api.nvim_set_hl(0, 'IconJs',       { fg = '#d4935a' })
+      vim.api.nvim_set_hl(0, 'IconJson',     { fg = '#8ab89c' })
+      vim.api.nvim_set_hl(0, 'IconLua',      { fg = '#7eacc0' })
+      require('mini.icons').setup(opts)
+    end,
     init = function()
       package.preload['nvim-web-devicons'] = function()
         require('mini.icons').mock_nvim_web_devicons()
@@ -36,6 +69,28 @@ return {
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'tender'
+      -- Re-apply icon colors after colorscheme load
+      vim.api.nvim_set_hl(0, 'IconFolder',   { fg = '#d4935a' })
+      vim.api.nvim_set_hl(0, 'IconTs',       { fg = '#7eacc0' })
+      vim.api.nvim_set_hl(0, 'IconTsx',      { fg = '#4d9ab0' })
+      vim.api.nvim_set_hl(0, 'IconMarkdown', { fg = '#a8a8a8' })
+      vim.api.nvim_set_hl(0, 'IconJs',       { fg = '#d4935a' })
+      vim.api.nvim_set_hl(0, 'IconJson',     { fg = '#8ab89c' })
+      vim.api.nvim_set_hl(0, 'IconLua',      { fg = '#7eacc0' })
+      -- Force Snacks windows to use the same bg as the editor (#282828)
+      vim.api.nvim_set_hl(0, 'SnacksNormal',   { fg = '#eeeeee', bg = '#282828' })
+      vim.api.nvim_set_hl(0, 'SnacksNormalNC', { fg = '#eeeeee', bg = '#282828' })
+      vim.api.nvim_set_hl(0, 'NormalFloat',    { fg = '#eeeeee', bg = '#282828' })
+      -- Explorer cursor line: dark teal, same hue as active tab
+      vim.api.nvim_set_hl(0, 'SnacksPickerCursorLine',     { bg = '#1e4a58' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerListCursorLine', { bg = '#1e4a58' })
+      -- Match NERDTree-style colors from tender
+      vim.api.nvim_set_hl(0, 'SnacksPickerDirectory',         { fg = '#b3deef', bg = '#282828' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerFile',              { fg = '#eeeeee', bg = '#282828' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerTree',              { fg = '#444444', bg = '#282828' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerGitStatusAdded',    { fg = '#c9d05c' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerGitStatusModified', { fg = '#ffc24b' })
+      vim.api.nvim_set_hl(0, 'SnacksPickerGitStatusDeleted',  { fg = '#f43753' })
     end,
   },
 
