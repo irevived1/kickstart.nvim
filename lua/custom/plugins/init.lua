@@ -1,7 +1,3 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
 return {
   {
     'christoomey/vim-tmux-navigator',
@@ -20,32 +16,33 @@ return {
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },
-  -- themes
+
+  -- Icons
+  {
+    'echasnovski/mini.icons',
+    lazy = true,
+    opts = {},
+    init = function()
+      package.preload['nvim-web-devicons'] = function()
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
+      end
+    end,
+  },
+
+  -- Themes
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
   {
     'navarasu/onedark.nvim',
-    priority = 1000, -- make sure to load this before all the other start plugins
+    priority = 1000,
     config = function()
       require('onedark').setup {
         style = 'darker',
       }
-      -- Enable theme
       require('onedark').load()
     end,
   },
   { 'marko-cerovac/material.nvim', priority = 1000 },
-  -- {
-  --   'nxstynate/oneDarkPro.nvim',
-  --   priority = 1000,
-  --   opts = {
-  --     palette_overrides = {
-  --       dark0 = '#282c34',
-  --     },
-  --   },
-  --   init = function()
-  --     vim.cmd.colorscheme 'oneDarkPro'
-  --   end,
-  -- },
   { 'NvChad/nvim-colorizer.lua', opts = {
     user_default_options = {
       css = true,
