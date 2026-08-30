@@ -43,6 +43,8 @@ return {
             list = {
               keys = {
                 ['O'] = 'toggle_maximize',
+                ['s'] = 'vsplit',
+                ['i'] = 'split',
               },
             },
           },
