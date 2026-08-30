@@ -118,7 +118,7 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Save fi
 -- LSP
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format,                        { noremap = true, desc = 'LSP format' })
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,                        { noremap = true, desc = 'Rename' })
-vim.keymap.set('n', '<leader>ca', function() Snacks.picker.lsp_code_actions() end, { noremap = true, desc = 'Code Action' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,                        { noremap = true, desc = 'Code Action' })
 
 -- Copy paths to system clipboard
 vim.keymap.set('n', '<leader>yr', function()
@@ -167,6 +167,18 @@ vim.keymap.set('n', '<leader>uv', function()
   vim.diagnostic.config { virtual_text = vim.g.diagnostics_active }
 end, { noremap = true, desc = 'Toggle diagnostic text' })
 vim.g.diagnostics_active = true
+
+-- Override vim.ui.select with Snacks after all plugins load so codecompanion
+-- (which tries to hijack it for telescope) can't intercept code actions etc.
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  once = true,
+  callback = function()
+    vim.ui.select = function(items, opts, on_choice)
+      Snacks.picker.select(items, opts, on_choice)
+    end
+  end,
+})
 
 -- :Notes opens a persistent scratch file inside the nvim config directory
 vim.api.nvim_create_user_command('Notes', function()
