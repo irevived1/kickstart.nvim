@@ -101,12 +101,14 @@ vim.api.nvim_create_autocmd('User', {
   callback = function()
     local win = vim.api.nvim_get_current_win()
     Snacks.explorer()
-    -- defer so Snacks finishes moving focus to the explorer before we move it back
-    vim.defer_fn(function()
-      if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_set_current_win(win)
-      end
-    end, 100)
+    -- double-schedule so we run after Snacks' own internal vim.schedule focus grab
+    vim.schedule(function()
+      vim.schedule(function()
+        if vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_set_current_win(win)
+        end
+      end)
+    end)
   end,
 })
 
