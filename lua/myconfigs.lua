@@ -115,10 +115,8 @@ vim.api.nvim_create_autocmd('User', {
 -- Save
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Save file' })
 
--- LSP
-vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format,                        { noremap = true, desc = 'LSP format' })
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,                        { noremap = true, desc = 'Rename' })
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,                        { noremap = true, desc = 'Code Action' })
+-- LSP (rename + code action are handled by lspsaga.lua)
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format, { noremap = true, desc = 'LSP format' })
 
 -- Copy paths to system clipboard
 vim.keymap.set('n', '<leader>yr', function()
