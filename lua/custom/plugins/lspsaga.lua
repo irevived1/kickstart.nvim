@@ -6,12 +6,12 @@ return {
   },
   config = function()
     require('lspsaga').setup {
-      lightbulb  = { enabled = false },
+      lightbulb   = { enabled = false },
       breadcrumbs = { enabled = false },
-      -- Disable code_action virtual text / inline preview
-      code_action = {
-        show_server_name = false,
-        extend_gitsigns = false,
+      code_action = { show_server_name = false, extend_gitsigns = false },
+      ui = {
+        border = 'rounded',
+        -- Use the same FloatBorder color we set for all other floats
       },
     }
 
