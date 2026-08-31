@@ -1,3 +1,9 @@
+-- Rounded borders on all LSP floats; set early so the handler is in place before any LSP attaches
+-- Must use full method-string keys — vim.lsp.handlers.hover / .signature_help are nil in modern Neovim
+vim.lsp.handlers["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers["textDocument/hover"],         { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers["textDocument/signatureHelp"], { border = "rounded" })
+vim.diagnostic.config { float = { border = "rounded" } }
+
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -119,6 +125,21 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Save fi
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format,      { noremap = true, desc = 'LSP format' })
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,      { noremap = true, desc = 'Rename' })
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, desc = 'Code Action' })
+
+-- Force K → stock hover on every buffer with border, deferred so we run after lspsaga's LspAttach.
+-- vim.defer_fn(fn, 0) fires after all vim.schedule callbacks in the current event-loop cycle,
+-- ensuring we override lspsaga's buffer-local K even if it also uses vim.schedule internally.
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.defer_fn(function()
+      if not vim.api.nvim_buf_is_valid(args.buf) then return end
+      vim.keymap.set('n', 'K', function()
+        -- Pass border directly (Neovim 0.11+); global handler override is a fallback for older
+        vim.lsp.buf.hover({ border = 'rounded' })
+      end, { buffer = args.buf, noremap = true, desc = 'Hover doc' })
+    end, 0)
+  end,
+})
 
 -- Copy paths to system clipboard
 vim.keymap.set('n', '<leader>yr', function()

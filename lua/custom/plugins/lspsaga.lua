@@ -17,7 +17,5 @@ return {
 
     -- Only use lspsaga for peek definition — everything else stays stock
     vim.keymap.set('n', '<leader>pd', '<cmd>Lspsaga peek_definition<CR>', { desc = 'Peek definition' })
-    -- Override lspsaga's automatic K mapping back to stock hover (which has our rounded border)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover doc' })
   end,
 }
