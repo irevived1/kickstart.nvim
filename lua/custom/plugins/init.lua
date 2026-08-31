@@ -82,6 +82,8 @@ return {
       vim.api.nvim_set_hl(0, 'IconJs',       { fg = '#d4935a' })
       vim.api.nvim_set_hl(0, 'IconJson',     { fg = '#8ab89c' })
       vim.api.nvim_set_hl(0, 'IconLua',      { fg = '#7eacc0' })
+      -- Light gray border for all LSP/diagnostic floating windows
+      vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#666666', bg = '#282828' })
       -- Force Snacks windows to use the same bg as the editor (#282828)
       vim.api.nvim_set_hl(0, 'SnacksNormal',   { fg = '#eeeeee', bg = '#282828' })
       vim.api.nvim_set_hl(0, 'SnacksNormalNC', { fg = '#eeeeee', bg = '#282828' })
