@@ -1,9 +1,3 @@
--- Rounded border + width cap so stylize_markdown renders code fences with treesitter highlighting
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-  max_width = 80,
-})
-
 return {
   'neovim/nvim-lspconfig',
   dependencies = { 'saghen/blink.cmp' },
